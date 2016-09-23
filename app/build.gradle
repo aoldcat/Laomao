@@ -11,15 +11,20 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        jackOptions {
+            enabled true
+        }
         externalNativeBuild {
             cmake {
                 cppFlags "-frtti -fexceptions"
             }
         }
+
     }
     freeline {
         hack true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -30,6 +35,10 @@ android {
         cmake {
             path "CMakeLists.txt"
         }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
