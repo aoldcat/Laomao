@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("laomao");
+                subscriber.onNext("laomao is 2B");
                 subscriber.onCompleted();
             }
         });
