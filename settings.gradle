@@ -1,1 +1,1 @@
-include ':app', ':laomaoui'
+include ':app', ':laomaoui', ':laomaotools'
