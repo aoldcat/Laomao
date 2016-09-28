@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.antfortune.freeline'
-
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
@@ -43,7 +42,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -51,4 +50,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile project(':laomaotools')
+    compile project(':laomaoui')
 }
