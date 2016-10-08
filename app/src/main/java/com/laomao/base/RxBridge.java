@@ -18,7 +18,7 @@ public class RxBridge {
     private static RxBridge instance;
     private ConcurrentHashMap<Object, List<Subject>> subjectMap = new ConcurrentHashMap<Object, List<Subject>>();
 
-    public static synchronized RxBridge $() {
+    public static synchronized RxBridge getInstance() {
         if (null == instance)
             instance = new RxBridge();
         return instance;
@@ -54,7 +54,7 @@ public class RxBridge {
             if (null == subjectList || subjectList.isEmpty())
                 subjectMap.remove(tag);
         }
-        return $();
+        return getInstance();
     }
 
     /**
@@ -62,7 +62,7 @@ public class RxBridge {
      */
     public RxBridge On(Observable<?> observable, Action1 action1) {
         observable.observeOn(AndroidSchedulers.mainThread()).subscribe(action1, (e) -> e.printStackTrace());
-        return $();
+        return getInstance();
     }
 
     /**

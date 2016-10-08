@@ -14,7 +14,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class RxManager {
-    public RxBridge mRxBridge = RxBridge.$();
+    public RxBridge mRxBridge = RxBridge.getInstance();
     private Map<String, Observable<?>> mObservables = new HashMap<>();// 源
     private CompositeSubscription mCompositeSubscription = new CompositeSubscription();// 订阅者
 
