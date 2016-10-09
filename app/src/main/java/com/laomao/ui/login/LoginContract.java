@@ -18,7 +18,7 @@ public interface LoginContract {
 
     interface View extends BaseView {
         void loginSuccess();
-        void loginFaild();
+        void loginFaild(String msg);
     }
 
     abstract class Presenter extends BasePresenter<Model,View> {
