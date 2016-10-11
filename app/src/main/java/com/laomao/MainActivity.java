@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.laomao.base.RxSchedulers;
 import com.laomao.beans.Laomao;
+import com.laomao.http.HttpHelper;
+import com.laomao.tools.LogUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvSmaple;
     @BindView(R.id.tv_laomao)
     TextView tvLaomao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +33,13 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         tvLaomao.setText("laomao");
 //        tvSmaple.setText(stringFromJNI());
+        HttpHelper.getInstance().dataService.getJoke("26aa2d34d3d70760be59142fc3dcef58", 1, 1)
+                .compose(RxSchedulers.ioMain())
+                .subscribe(jokeBean -> LogUtil.showToast(MainActivity.this, jokeBean.getResult().getData().get(0).getContent()));
         laomaoTest();
         query("hello").flatMap(urls -> Observable.from(urls))
                 .flatMap(url -> getTitle(url))
-                .filter(title->title.startsWith("s1"))
+                .filter(title -> title.startsWith("s1"))
                 .subscribe(action1);
     }
 
@@ -44,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if ("404".equals(URL)) {
             return null;
         } else {
-            return Observable.just( URL+"title");
+            return Observable.just(URL + "title");
         }
     }
 
