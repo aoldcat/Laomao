@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Created by laomao on 16/9/23.
+ * 我就是一个测试的类而已
  */
 
 public class Laomao implements Parcelable {

@@ -1,7 +1,9 @@
 package com.laomao.ui.login;
 
 import com.laomao.base.RxSchedulers;
+import com.laomao.beans.login.RegUserBean;
 import com.laomao.beans.login.UserBean;
+import com.laomao.http.HttpHelper;
 
 import rx.Observable;
 
@@ -12,6 +14,7 @@ import rx.Observable;
 public class LoginModel implements LoginContract.Model {
     @Override
     public Observable<UserBean> login(String userName, String userPwd) {
+
         //// TODO: 16/10/8 这里应该各种网络请求、数据库、进程通信、广播等等方式拿数据
         UserBean user;
         if ("1".equals(userName) && "1".equals(userPwd)) {
