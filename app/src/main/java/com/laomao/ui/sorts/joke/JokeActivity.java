@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.laomao.R;
 import com.laomao.base.BaseActivity;
 import com.laomao.beans.bussiness.joke.JokeBean;
+import com.laomao.utils.SpUtil;
 
 import java.util.List;
 
@@ -29,10 +30,11 @@ public class JokeActivity extends BaseActivity<JokePresenter,JokeModel> implemen
 
     @Override
     public void initView() {
-        btnJokeChange.callOnClick();
+        page= SpUtil.getPage();
         btnJokeChange.setOnClickListener(view -> {
             mPresenter.getJokes(page++,4);
         });
+        btnJokeChange.performClick();
 
     }
 

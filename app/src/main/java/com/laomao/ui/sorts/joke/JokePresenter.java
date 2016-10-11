@@ -1,6 +1,7 @@
 package com.laomao.ui.sorts.joke;
 
 import com.laomao.tools.LogUtil;
+import com.laomao.utils.SpUtil;
 
 /**
  * Created by laomao on 16/10/11.
@@ -13,6 +14,7 @@ public class JokePresenter extends JokeContract.Presenter {
         .subscribe(jokeBean -> {
             if(jokeBean.getError_code()==0)
             {
+                SpUtil.setPage(page);
                 mRxManager.post("getjoke",jokeBean.getResult().getData());
                 mView.getJokes(jokeBean.getResult().getData());
             }

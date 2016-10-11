@@ -25,9 +25,10 @@ public abstract class BaseActivity<P extends BasePresenter,M extends BaseModel> 
         mContext=this;
         mPresenter= Tutil.getT(this,0);
         mModel=Tutil.getT(this,1);
-        this.initView();
+
         if(this instanceof BaseView)
             mPresenter.setViewModel(mModel,this);
+        this.initView();
     }
 
     public abstract int getLayoutId();
