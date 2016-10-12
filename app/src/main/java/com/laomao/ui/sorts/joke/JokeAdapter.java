@@ -28,7 +28,7 @@ public class JokeAdapter extends BaseRecyclerAdapter<JokeAdapter.ViewHolder>  {
 
     @Override
     public ViewHolder getViewHolder(View view) {
-        return null;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -41,6 +41,8 @@ public class JokeAdapter extends BaseRecyclerAdapter<JokeAdapter.ViewHolder>  {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position, boolean isItem) {
         holder.textView.setText(jokeList.get(position).getContent());
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+
     }
 
     @Override

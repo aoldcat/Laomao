@@ -1,9 +1,11 @@
 package com.laomao.ui.sorts.joke;
 
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.andview.refreshview.XRefreshView;
+import com.andview.refreshview.XRefreshViewFooter;
 import com.laomao.R;
 import com.laomao.base.BaseActivity;
 import com.laomao.beans.bussiness.joke.JokeBean;
@@ -40,8 +42,10 @@ public class JokeActivity extends BaseActivity<JokePresenter, JokeModel> impleme
         page = SpUtil.getPage();
         jokeList = new ArrayList<>();
         adapter = new JokeAdapter(jokeList);
+
+
         // 设置静默加载模式
-        xRefreshView.setSilenceLoadMore();
+//        xRefreshView1.setSilenceLoadMore();
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         // 静默加载模式不能设置footerview
@@ -49,12 +53,24 @@ public class JokeActivity extends BaseActivity<JokePresenter, JokeModel> impleme
         //设置刷新完成以后，headerview固定的时间
         xRefreshView.setPinnedTime(1000);
         xRefreshView.setMoveForHorizontal(true);
+        xRefreshView.setPullLoadEnable(true);
+        xRefreshView.setAutoLoadMore(true);
+        adapter.setCustomLoadMoreView(new XRefreshViewFooter(this));
+        xRefreshView.enableReleaseToLoadMore(true);
+        xRefreshView.enableRecyclerViewPullUp(true);
+        xRefreshView.enablePullUpWhenLoadCompleted(true);
         //设置静默加载时提前加载的item个数
-        xRefreshView.setPreLoadCount(5);
+//        xRefreshView1.setPreLoadCount(4);
+
         xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
             @Override
             public void onRefresh() {
-                super.onRefresh();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        xRefreshView.stopRefresh();
+                    }
+                }, 1000);
             }
 
             @Override
