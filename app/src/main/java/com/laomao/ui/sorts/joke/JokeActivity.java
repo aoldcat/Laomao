@@ -44,8 +44,6 @@ public class JokeActivity extends BaseActivity<JokePresenter, JokeModel> impleme
         adapter = new JokeAdapter(jokeList);
 
 
-        // 设置静默加载模式
-//        xRefreshView1.setSilenceLoadMore();
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         // 静默加载模式不能设置footerview
@@ -59,8 +57,6 @@ public class JokeActivity extends BaseActivity<JokePresenter, JokeModel> impleme
         xRefreshView.enableReleaseToLoadMore(true);
         xRefreshView.enableRecyclerViewPullUp(true);
         xRefreshView.enablePullUpWhenLoadCompleted(true);
-        //设置静默加载时提前加载的item个数
-//        xRefreshView1.setPreLoadCount(4);
 
         xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
             @Override
