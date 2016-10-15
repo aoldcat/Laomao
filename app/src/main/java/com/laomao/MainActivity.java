@@ -1,36 +1,94 @@
 package com.laomao;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.laomao.base.RxSchedulers;
+import com.laomao.beans.Laomao;
+import com.laomao.http.HttpHelper;
+import com.laomao.tools.LogUtil;
+
+import java.util.Arrays;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action1;
 
 
 public class MainActivity extends AppCompatActivity {
+    @BindView(R.id.sample_text)
+    TextView tvSmaple;
+    @BindView(R.id.tv_laomao)
+    TextView tvLaomao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
+        ButterKnife.bind(this);
+        tvLaomao.setText("laomao");
+//        tvSmaple.setText(stringFromJNI());
+        HttpHelper.getInstance().dataService.getJoke("26aa2d34d3d70760be59142fc3dcef58", 1, 1)
+                .compose(RxSchedulers.ioMain())
+                .subscribe(jokeBean -> LogUtil.showToast(MainActivity.this, jokeBean.getResult().getData().get(0).getContent()));
         laomaoTest();
+        query("hello").flatMap(urls -> Observable.from(urls))
+                .flatMap(url -> getTitle(url))
+                .filter(title -> title.startsWith("s1"))
+                .subscribe(action1);
+    }
+
+    Observable<List<String>> query(String text) {
+        return Observable.just(Arrays.asList(new String[]{"s1" + text, "s2" + text}));
+    }
+
+    Observable<String> getTitle(String URL) {
+        if ("404".equals(URL)) {
+            return null;
+        } else {
+            return Observable.just(URL + "title");
+        }
     }
 
     private void laomaoTest() {
-        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("laomao is 2B");
-                subscriber.onCompleted();
-            }
+        //基本用法
+        Laomao laomao = new Laomao();
+        laomao.setId("0");
+        laomao.setName("老猫");
+        laomao.setAge("18");
+
+        Observable.just(laomao).map(s -> {
+            s.setAge("80");
+            return s;
+        }).subscribe(s -> {
+            Toast.makeText(MainActivity.this, laomao.toString(), Toast.LENGTH_SHORT).show();
         });
-        observable.subscribe(subscriber);
+
+
+//        Observable<Laomao> observable = Observable.just(laomao);
+//        observable.subscribe(action1);
+
+//        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
+//            @Override
+//            public void call(Subscriber<? super String> subscriber) {
+//                subscriber.onNext("蜗牛 is 2B");
+//                subscriber.onCompleted();
+//            }
+//        });
+//        observable.subscribe(subscriber);
     }
+
+    Action1<String> action1 = new Action1<String>() {
+        @Override
+        public void call(String str) {
+            Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     Subscriber<String> subscriber = new Subscriber<String>() {
         @Override
@@ -45,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onNext(String s) {
-            Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
         }
     };
 
