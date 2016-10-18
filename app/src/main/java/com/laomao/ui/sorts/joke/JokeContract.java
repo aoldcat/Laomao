@@ -25,4 +25,5 @@ public interface JokeContract {
     abstract class Presenter extends BasePresenter<Model, View> {
         public abstract void getJokes(int page, int pagesize);
     }
+
 }

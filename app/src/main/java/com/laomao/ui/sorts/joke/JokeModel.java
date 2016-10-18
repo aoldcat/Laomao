@@ -17,4 +17,5 @@ public class JokeModel implements JokeContract.Model {
                 .getJoke(key,page,pagesize)
                 .compose(RxSchedulers.ioMain());
     }
+
 }

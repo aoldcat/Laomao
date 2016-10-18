@@ -42,8 +42,6 @@ public class JokeActivity extends BaseActivity<JokePresenter, JokeModel> impleme
         page = SpUtil.getPage();
         jokeList = new ArrayList<>();
         adapter = new JokeAdapter(jokeList);
-
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         // 静默加载模式不能设置footerview

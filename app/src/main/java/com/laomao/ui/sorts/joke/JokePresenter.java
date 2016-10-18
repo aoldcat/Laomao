@@ -15,12 +15,13 @@ public class JokePresenter extends JokeContract.Presenter {
             if(jokeBean.getError_code()==0)
             {
                 SpUtil.setPage(page);
-//                mRxManager.post("getjoke",jokeBean.getResult().getData());
+                mRxManager.post("getjoke",jokeBean.getResult().getData());
                 mView.getJokes(jokeBean.getResult().getData());
             }
         },e->{
             LogUtil.showLog(e.getMessage());
         }));
+
     }
 
     @Override
