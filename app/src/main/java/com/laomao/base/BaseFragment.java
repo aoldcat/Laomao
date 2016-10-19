@@ -36,7 +36,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
         if(this instanceof BaseView)
             mPresenter.setViewModel(mModel,this);
         this.initView();
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     public abstract int getLayoutId();

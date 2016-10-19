@@ -1,12 +1,11 @@
 package com.laomao.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.laomao.R;
 import com.laomao.base.BaseActivity;
-import com.laomao.ui.home.HomeFragment;
+import com.laomao.ui.home.HomeFrag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +67,7 @@ public class MainTabActivity extends BaseActivity {
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //transaction.setCustomAnimations(R.anim.push_up_in,R.anim.push_up_out);
-            transaction.replace(R.id.frameLayout, mFragments.get(index));
+            transaction.replace(R.id.frameLayout, mFragments.get(0));
             transaction.commit();
         }
 
@@ -81,10 +80,7 @@ public class MainTabActivity extends BaseActivity {
         mFragments = new ArrayList<>();
 
         mFragments.add(createFragment("A"));
-        mFragments.add(createFragment("B"));
-        mFragments.add(createFragment("C"));
-        mFragments.add(createFragment("D"));
-        mFragments.add(createFragment("E"));
+
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frameLayout, mFragments.get(0));
@@ -92,10 +88,7 @@ public class MainTabActivity extends BaseActivity {
     }
 
     private Fragment createFragment(String content) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("content", content);
-        fragment.setArguments(bundle);
+        HomeFrag fragment = new HomeFrag();
 
         return fragment;
     }
