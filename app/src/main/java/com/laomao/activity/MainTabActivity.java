@@ -47,7 +47,7 @@ public class MainTabActivity extends BaseActivity {
 
         controller = pagerBottomTabLayout.builder()
                 .addTabItem(tabItemBuilder)
-                .addTabItem(android.R.drawable.ic_menu_compass, "地图", testColors[1])
+                .addTabItem(android.R.drawable.ic_menu_compass, "天气", testColors[1])
                 .addTabItem(android.R.drawable.ic_menu_search, "视频", testColors[2])
                 .addTabItem(android.R.drawable.ic_menu_help, "设置", testColors[3])
 //                .setMode(TabLayoutMode.HIDE_TEXT)
