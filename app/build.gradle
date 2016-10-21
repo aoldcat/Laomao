@@ -18,6 +18,10 @@ android {
                 cppFlags "-frtti -fexceptions"
             }
         }
+        lintOptions {
+            abortOnError false
+        }
+
 
     }
     freeline {
