@@ -7,17 +7,17 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 
 public class HomeFragPresenter extends HomeFragContract.Presenter {
-    @Override
-    public void getWeather(String cityname) {
-//        cityname = URLEncoder.encode(cityname);
-        mModel.getWeather(cityname).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(weathersBean -> {
-                    mView.weatherResult(weathersBean.getResult());
-                });
-    }
 
     @Override
     public void onStart() {
 
+    }
+
+    @Override
+    public void getBlogs() {
+        mModel.getBlogs().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(blogBean -> {
+                    mView.blogResult(blogBean);
+                });
     }
 }

@@ -1,5 +1,6 @@
 package com.laomao.http;
 
+import com.laomao.beans.bussiness.blog.BlogBean;
 import com.laomao.beans.bussiness.joke.JokeBean;
 import com.laomao.beans.bussiness.weather.WeathersBean;
 
@@ -18,4 +19,7 @@ public interface DataService {
 
     @GET("weather/query")
     Observable<WeathersBean> getWeather(@Query("key") String key,@Query("cityname") String cityname);
+
+    @GET("classes/blogs")
+    Observable<BlogBean> getBlogs();
 }

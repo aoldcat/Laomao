@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.laomao.R;
 import com.laomao.base.BaseActivity;
+import com.laomao.ui.about.AboutFrag;
 import com.laomao.ui.home.HomeFrag;
 
 import java.util.ArrayList;
@@ -40,22 +41,22 @@ public class MainTabActivity extends BaseActivity {
         initFragment();
         TabItemBuilder tabItemBuilder = new TabItemBuilder(this).create()
                 .setDefaultIcon(android.R.drawable.ic_menu_send)
-                .setText("首页")
+                .setText(getResources().getString(R.string.tab_home))
                 .setSelectedColor(testColors[0])
                 .setTag("A")
                 .build();
 
         controller = pagerBottomTabLayout.builder()
                 .addTabItem(tabItemBuilder)
-                .addTabItem(android.R.drawable.ic_menu_compass, "天气", testColors[1])
-                .addTabItem(android.R.drawable.ic_menu_search, "视频", testColors[2])
-                .addTabItem(android.R.drawable.ic_menu_help, "设置", testColors[3])
+                .addTabItem(android.R.drawable.ic_menu_compass, getResources().getString(R.string.tab_about), testColors[1])
+//                .addTabItem(android.R.drawable.ic_menu_search, "小小说", testColors[2])
+//                .addTabItem(android.R.drawable.ic_menu_help, "小图片", testColors[3])
 //                .setMode(TabLayoutMode.HIDE_TEXT)
 //                .setMode(TabLayoutMode.CHANGE_BACKGROUND_COLOR)
                 .setMode(TabLayoutMode.HIDE_TEXT | TabLayoutMode.CHANGE_BACKGROUND_COLOR)
                 .build();
 
-//        controller.setMessageNumber("A",2);
+        controller.setMessageNumber("A",2);
 //        controller.setDisplayOval(0,true);
 
         controller.addTabItemClickListener(listener);
@@ -67,7 +68,7 @@ public class MainTabActivity extends BaseActivity {
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //transaction.setCustomAnimations(R.anim.push_up_in,R.anim.push_up_out);
-            transaction.replace(R.id.frameLayout, mFragments.get(0));
+            transaction.replace(R.id.frameLayout, mFragments.get(index));
             transaction.commit();
         }
 
@@ -79,7 +80,8 @@ public class MainTabActivity extends BaseActivity {
     private void initFragment() {
         mFragments = new ArrayList<>();
 
-        mFragments.add(createFragment("A"));
+        mFragments.add(new HomeFrag());
+        mFragments.add(new AboutFrag());
 
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -87,9 +89,5 @@ public class MainTabActivity extends BaseActivity {
         transaction.commit();
     }
 
-    private Fragment createFragment(String content) {
-        HomeFrag fragment = new HomeFrag();
 
-        return fragment;
-    }
 }

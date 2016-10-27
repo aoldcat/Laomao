@@ -27,11 +27,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpHelper {
 
-//    public static final String LEANCLOUD_ID = "LY9qvSrv3qK6CXE2HIT4s4mj-gzGzoHsz";
-//    public static final String LEANCLOUD_KEY = "vB9XsJyWk9v86Ivc3wd4lq2P";
-//    public static final String BASE_URL = "https://api.leancloud.cn/1.1/";
+    public static final String LEANCLOUD_ID = "LY9qvSrv3qK6CXE2HIT4s4mj-gzGzoHsz";
+    public static final String LEANCLOUD_KEY = "vB9XsJyWk9v86Ivc3wd4lq2P";
+    public static final String BASE_URL = "https://api.leancloud.cn/1.1/";
 //    public static  String BASE_URL="http://japi.juhe.cn/joke/content/";
-    public static  String BASE_URL="http://op.juhe.cn/onebox/";
+//    public static  String BASE_URL="http://op.juhe.cn/onebox/";
     public Retrofit retrofit;
     public DataService dataService;
 
@@ -63,11 +63,7 @@ public class HttpHelper {
 
     }
 
-    public HttpHelper setBaseurl(String baseurl)
-    {
-        this.BASE_URL=baseurl;
-        return this;
-    }
+
     private static class SingleInstance {
         private static final HttpHelper httpHelper = new HttpHelper();
     }
@@ -79,8 +75,8 @@ public class HttpHelper {
 
     Interceptor commonInterceptor = chain -> chain.proceed(chain.request().newBuilder()
             .addHeader("Content-Type", "application/json")
-//            .addHeader("X-LC-Id", LEANCLOUD_ID)
-//            .addHeader("X-LC-Key", LEANCLOUD_KEY)
+            .addHeader("X-LC-Id", LEANCLOUD_ID)
+            .addHeader("X-LC-Key", LEANCLOUD_KEY)
             .build());
 
     class HttpCacheInterceptor implements Interceptor {

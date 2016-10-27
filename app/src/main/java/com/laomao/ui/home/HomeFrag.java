@@ -1,12 +1,18 @@
 package com.laomao.ui.home;
 
-import android.widget.Button;
-import android.widget.EditText;
+import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.andview.refreshview.XRefreshView;
+import com.andview.refreshview.XRefreshViewFooter;
 import com.laomao.R;
 import com.laomao.base.BaseFragment;
-import com.laomao.beans.bussiness.weather.WeathersBean;
+import com.laomao.beans.bussiness.blog.BlogBean;
 import com.laomao.tools.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -14,12 +20,15 @@ import butterknife.BindView;
  * Created by laomao on 16/10/18.
  */
 
-public class HomeFrag extends BaseFragment<HomeFragPresenter, HomeFragModel> implements HomeFragContract.View{
+public class HomeFrag extends BaseFragment<HomeFragPresenter, HomeFragModel> implements HomeFragContract.View {
 
-    @BindView(R.id.et_cityname)
-    EditText etCityname;
-    @BindView(R.id.btn_weather)
-    Button btnWeather;
+    @BindView(R.id.x_refreshview)
+    XRefreshView xRefreshView;
+    @BindView(R.id.recycler_blog)
+    RecyclerView recyclerView;
+    LinearLayoutManager layoutManager;
+    BlogAdapter blogAdapter;
+    List<BlogBean.ResultsBean> list;
 
     @Override
     public int getLayoutId() {
@@ -28,14 +37,53 @@ public class HomeFrag extends BaseFragment<HomeFragPresenter, HomeFragModel> imp
 
     @Override
     public void initView() {
-        btnWeather.setOnClickListener(view -> {
-            mPresenter.getWeather(etCityname.getText().toString().trim());
-        });
+        list=new ArrayList<>();
+        blogAdapter = new BlogAdapter(list);
+        layoutManager = new LinearLayoutManager(mContext);
+        recyclerView.setLayoutManager(layoutManager);
+        // 静默加载模式不能设置footerview
+        recyclerView.setAdapter(blogAdapter);
+        //设置刷新完成以后，headerview固定的时间
+        xRefreshView.setPinnedTime(1000);
+        xRefreshView.setMoveForHorizontal(true);
+        xRefreshView.setPullLoadEnable(true);
+        xRefreshView.setAutoLoadMore(true);
+        blogAdapter.setCustomLoadMoreView(new XRefreshViewFooter(mContext));
+        xRefreshView.enableReleaseToLoadMore(true);
+        xRefreshView.enableRecyclerViewPullUp(true);
+        xRefreshView.enablePullUpWhenLoadCompleted(true);
+        xRefreshView.setXRefreshViewListener(listener);
+        mPresenter.getBlogs();
+
     }
 
-    @Override
-    public void weatherResult(WeathersBean.ResultBean resultBean) {
+    XRefreshView.SimpleXRefreshListener listener = new XRefreshView.SimpleXRefreshListener() {
+        @Override
+        public void onRefresh() {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    xRefreshView.stopRefresh();
+                }
+            }, 1000);
+        }
 
-        LogUtil.showToast(getActivity(),resultBean.getData().getRealtime().getWeather().getInfo());
+        @Override
+        public void onLoadMore(boolean isSilence) {
+            super.onLoadMore(isSilence);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LogUtil.showToast(mContext,"没有更多了");
+                }
+            }, 1000);
+        }
+    };
+
+    @Override
+    public void blogResult(BlogBean blogBean) {
+        blogAdapter.blogBean=blogBean.getResults();
+        blogAdapter.notifyDataSetChanged();
+        xRefreshView.stopLoadMore();
     }
 }

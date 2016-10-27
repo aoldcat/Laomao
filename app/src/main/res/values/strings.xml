@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">laomao</string>
+    <string name="app_name">老猫</string>
+
+    <!--首页tab标签-->
+    <string name="tab_home">首页</string>
+    <string name="tab_about">关于</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_demo">DemoActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
