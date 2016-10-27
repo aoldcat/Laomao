@@ -48,6 +48,7 @@ public class BlogAdapter extends BaseRecyclerAdapter<BlogAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        //不知道为什么这里butterknife不可以，待研究
 //        @BindView(R.id.tv_blog_title)
         TextView tvBlogtitle;
 //        @BindView(R.id.tv_blog_time)

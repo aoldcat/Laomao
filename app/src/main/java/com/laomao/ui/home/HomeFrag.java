@@ -75,6 +75,7 @@ public class HomeFrag extends BaseFragment<HomeFragPresenter, HomeFragModel> imp
                 @Override
                 public void run() {
                     LogUtil.showToast(mContext,"没有更多了");
+                    xRefreshView.stopLoadMore();
                 }
             }, 1000);
         }
