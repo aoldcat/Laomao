@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.laomao.R;
 import com.laomao.beans.bussiness.blog.BlogBean;
+import com.laomao.interfaces.OnListItemClickListener;
 
 import java.util.List;
 
@@ -19,11 +20,15 @@ import java.util.List;
 public class BlogAdapter extends BaseRecyclerAdapter<BlogAdapter.ViewHolder> {
 
     public List<BlogBean.ResultsBean> blogBean;
+    private OnListItemClickListener mOnItemClickListener = null;
 
     public BlogAdapter(List<BlogBean.ResultsBean> blogBean) {
         this.blogBean = blogBean;
     }
 
+    public void setOnItemClickListener(OnListItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
     @Override
     public ViewHolder getViewHolder(View view) {
         return new ViewHolder(view);
@@ -40,6 +45,7 @@ public class BlogAdapter extends BaseRecyclerAdapter<BlogAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position, boolean isItem) {
         holder.tvBlogtitle.setText(blogBean.get(position).getTitle());
         holder.tvBlogtime.setText(blogBean.get(position).getCreatedAt());
+//        holder
     }
 
     @Override

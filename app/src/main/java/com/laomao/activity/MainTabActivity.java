@@ -15,7 +15,6 @@ import butterknife.BindView;
 import me.majiajie.pagerbottomtabstrip.Controller;
 import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
 import me.majiajie.pagerbottomtabstrip.TabItemBuilder;
-import me.majiajie.pagerbottomtabstrip.TabLayoutMode;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
 
 /**
@@ -40,23 +39,26 @@ public class MainTabActivity extends BaseActivity {
     public void initView() {
         initFragment();
         TabItemBuilder tabItemBuilder = new TabItemBuilder(this).create()
-                .setDefaultIcon(android.R.drawable.ic_menu_send)
+                .setDefaultIcon(R.drawable.home_off)
                 .setText(getResources().getString(R.string.tab_home))
+                .setSelectedIcon(R.drawable.home_on)
                 .setSelectedColor(testColors[0])
                 .setTag("A")
                 .build();
 
         controller = pagerBottomTabLayout.builder()
                 .addTabItem(tabItemBuilder)
-                .addTabItem(android.R.drawable.ic_menu_compass, getResources().getString(R.string.tab_about), testColors[1])
+                .addTabItem(R.drawable.home_message_off, R.drawable.home_message_on, "消息", testColors[1])
+                .addTabItem(R.drawable.home_me_off, R.drawable.home_me_on, "我的", testColors[1])
+                .addTabItem(R.drawable.home_work_off,R.drawable.home_work_on, getResources().getString(R.string.tab_about), testColors[1])
 //                .addTabItem(android.R.drawable.ic_menu_search, "小小说", testColors[2])
 //                .addTabItem(android.R.drawable.ic_menu_help, "小图片", testColors[3])
 //                .setMode(TabLayoutMode.HIDE_TEXT)
 //                .setMode(TabLayoutMode.CHANGE_BACKGROUND_COLOR)
-                .setMode(TabLayoutMode.HIDE_TEXT | TabLayoutMode.CHANGE_BACKGROUND_COLOR)
+//                .setMode(TabLayoutMode.HIDE_TEXT | TabLayoutMode.CHANGE_BACKGROUND_COLOR)
                 .build();
 
-        controller.setMessageNumber("A",2);
+        controller.setMessageNumber("A", 2);
 //        controller.setDisplayOval(0,true);
 
         controller.addTabItemClickListener(listener);
@@ -81,6 +83,8 @@ public class MainTabActivity extends BaseActivity {
         mFragments = new ArrayList<>();
 
         mFragments.add(new HomeFrag());
+        mFragments.add(new AboutFrag());
+        mFragments.add(new AboutFrag());
         mFragments.add(new AboutFrag());
 
 

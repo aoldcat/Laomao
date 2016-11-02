@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
 
     <com.andview.refreshview.XRefreshView
         android:id="@+id/x_refreshview"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="2dp"
-            android:background="#bbccaa"
+            android:background="@android:color/white"
             android:scrollbars="vertical" />
     </com.andview.refreshview.XRefreshView>
 
